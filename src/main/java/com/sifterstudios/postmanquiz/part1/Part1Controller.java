@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HelloController {
+public class Part1Controller {
     @GetMapping("/hello")
     public String getHello() {
         return "Hello World!";
@@ -23,4 +23,5 @@ public class HelloController {
     public String getStatus() {
         return "Service is up and running";
     }
+
 }

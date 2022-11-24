@@ -2,9 +2,15 @@ package com.sifterstudios.postmanquiz.part2;
 
 import com.sifterstudios.postmanquiz.entities.Cart;
 import com.sifterstudios.postmanquiz.entities.Item;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.rmi.ServerException;
 import java.util.List;
 
 @RestController
@@ -12,16 +18,23 @@ public class Part2Controller {
     @GetMapping("api/v1/items")
     public List<Item> getAllItems() {
         return List.of(
-                new Item("Item1"),
-                new Item("Item2"),
-                new Item("Item3"),
-                new Item("Item4")
+                new Item(0,1),
+                new Item(1,1),
+                new Item(2,1),
+                new Item(3,1)
         );
     }
 
     @GetMapping("api/v1/cart")
     public List<Item> getCart() {
         return Cart.WebShopCart.get();
+    }
+
+    @PostMapping(path = "api/v1/items", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> addItemToCart(@RequestBody Item item) throws ServerException {
+        if (item == null) throw new ServerException("Could not find item");
+        Cart.WebShopCart.add(item);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 

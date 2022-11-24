@@ -1,6 +1,7 @@
 package com.sifterstudios.postmanquiz.part2;
 
-import com.sifterstudios.postmanquiz.Item;
+import com.sifterstudios.postmanquiz.entities.Cart;
+import com.sifterstudios.postmanquiz.entities.Item;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,4 +18,11 @@ public class Part2Controller {
                 new Item("Item4")
         );
     }
+
+    @GetMapping("api/v1/cart")
+    public List<Item> getCart() {
+        return Cart.WebShopCart.get();
+    }
+
+
 }

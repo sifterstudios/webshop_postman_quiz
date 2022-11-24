@@ -1,4 +1,4 @@
-package com.sifterstudios.postmanquiz;
+package com.sifterstudios.postmanquiz.entities;
 
 public class Item {
     private final String name;

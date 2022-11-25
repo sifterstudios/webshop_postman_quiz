@@ -5,6 +5,7 @@ import com.sifterstudios.postmanquiz.entities.Item;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.rmi.ServerException;
@@ -33,7 +34,6 @@ public class Part2Controller {
         Cart.WebShopCart.add(item);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
     @DeleteMapping(path = "api/v1/items/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> deleteItemFromCart(@RequestBody Item item, @PathVariable int id) throws ServerException {
         if (item == null) throw new ServerException("Could not find item");

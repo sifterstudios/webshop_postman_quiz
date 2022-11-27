@@ -1,7 +1,6 @@
 package com.sifterstudios.postmanquiz.entities;
 
 import java.util.List;
-import java.util.stream.Collector;
 
 public final class ItemDataBase  {
 
@@ -26,7 +25,6 @@ public final class ItemDataBase  {
                 new Item(9, "Peas", "Alibaba"),
                 new Item(10,"Peanuts", "AT&T"),
                 new Item(11,"Mushroom", "IBM"));
-        System.out.println("Created Item Database");
     }
 
     public Item getItemById(int id) {

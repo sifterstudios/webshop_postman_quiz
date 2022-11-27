@@ -30,9 +30,9 @@ public class Part3Controller {
             @RequestParam(required = false) String brand) throws ServerException {
         var items = new ArrayList<Item>();
 
-        if (name != null) {
+        if (name == null) name = "";
         items.addAll( getQueriedItems(name));
-        }
+
         if (brand != null) {
             items = (ArrayList<Item>) getItemsOfBrand(brand, items);
         }
@@ -47,9 +47,14 @@ public class Part3Controller {
     }
 
     private List<Item> getItemsOfBrand(String brand, ArrayList<Item> items) {
+        var brandItems = new ArrayList<Item>();
+        for (Item item : items) {
+            if (item.getBrand().toLowerCase().equals(brand.toLowerCase())) {
+                brandItems.add(item);
+            }
+        }
 
-
-        return null;
+        return brandItems;
     }
 
     private static ArrayList<Item> getQueriedItems(String name) {
@@ -63,6 +68,7 @@ public class Part3Controller {
                 foundItems.add(ItemDataBase.items.getItemById(i));
             }
         }
+        if (foundItems.isEmpty()) foundItems.addAll(ItemDataBase.items.getItemList());
         return foundItems;
     }
 

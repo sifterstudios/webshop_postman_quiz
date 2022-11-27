@@ -5,6 +5,8 @@ public class Item {
     private final int amount;
     private final String name;
 
+    private final String brand;
+
     public String getName() {
         return name;
     }
@@ -17,15 +19,21 @@ public class Item {
         return amount;
     }
 
-    public Item(int id, int amount, String name) {
+    public String getBrand() {
+        return brand;
+    }
+
+    public Item(int id, int amount, String name, String brand) {
         this.id = id;
         this.amount = amount;
         this.name = name;
+        this.brand = brand;
     }
 
-    public Item(int id, String name) {
+    public Item(int id, String name, String brand) {
         this.id = id;
         this.name = name;
+        this.brand = brand;
         amount = -1;
     }
 }

@@ -2,10 +2,11 @@ package com.sifterstudios.postmanquiz.part2;
 
 import com.sifterstudios.postmanquiz.entities.Cart;
 import com.sifterstudios.postmanquiz.entities.Item;
+import com.sifterstudios.postmanquiz.entities.ItemDataBase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.rmi.ServerException;
@@ -15,11 +16,12 @@ import java.util.List;
 public class Part2Controller {
     @GetMapping("api/v1/items")
     public List<Item> getAllItems() {
+        assert ItemDataBase.items != null;
         return List.of(
-                new Item(0,1),
-                new Item(1,1),
-                new Item(2,1),
-                new Item(3,1)
+                ItemDataBase.items.getItemById(0),
+                ItemDataBase.items.getItemById(1),
+                ItemDataBase.items.getItemById(2),
+                ItemDataBase.items.getItemById(3)
         );
     }
 

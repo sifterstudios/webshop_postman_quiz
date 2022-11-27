@@ -23,18 +23,60 @@ public class Part3Controller {
     }
 
     @GetMapping("/api/v2/items")
-    public List<Item> getItemPageOfSize(@RequestParam int page, @RequestParam int pageSize) throws ServerException {
+    public List<Item> getItemPageOfSize(
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer pageSize,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String brand) throws ServerException {
         var items = new ArrayList<Item>();
-        int totalItems = ItemDataBase.items.size();
-        int startNumber = page * pageSize;
-        if (startNumber + pageSize >= totalItems) {
-            throw new ServerException("Item count exceeded. There are " + totalItems + " items in the database");
+
+        if (name != null) {
+        items.addAll( getQueriedItems(name));
+        }
+        if (brand != null) {
+            items = (ArrayList<Item>) getItemsOfBrand(brand, items);
         }
 
-        for (int i = 0; i < pageSize; i++) {
-            items.add(ItemDataBase.items.getItemById(startNumber + i));
+        if (page == null) page = 0;
+        if (pageSize == null) pageSize = 10;
+
+
+        return getPageOfItems(page, pageSize, items);
+
+
+    }
+
+    private List<Item> getItemsOfBrand(String brand, ArrayList<Item> items) {
+
+
+        return null;
+    }
+
+    private static ArrayList<Item> getQueriedItems(String name) {
+        var allItems = new ArrayList<String>();
+        var foundItems = new ArrayList<Item>();
+        for (int i = 0; i < ItemDataBase.items.size(); i++) {
+            allItems.add(ItemDataBase.items.getItemById(i).getName().toLowerCase());
         }
-        return items;
+        for (int i = 0; i < allItems.size(); i++) {
+            if (allItems.get(i).equals(name.toLowerCase())) {
+                foundItems.add(ItemDataBase.items.getItemById(i));
+            }
+        }
+        return foundItems;
+    }
+
+    private static ArrayList<Item> getPageOfItems(Integer page, Integer pageSize, ArrayList<Item> items) throws ServerException {
+        var pageOfItems = new ArrayList<Item>();
+        int totalItems = items.size();
+        int startNumber = page * pageSize;
+        int endNumber = startNumber + pageSize;
+        if (endNumber > totalItems) endNumber = totalItems;
+
+        for (int i = startNumber; i < endNumber; i++) {
+            pageOfItems.add(items.get(i));
+        }
+        return pageOfItems;
     }
 
 

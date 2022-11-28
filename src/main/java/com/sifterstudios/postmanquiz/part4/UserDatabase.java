@@ -24,4 +24,13 @@ public class UserDatabase {
         all.add(user);
         return all.get(all.size()-1);
     }
+
+    public User getUser(int id) {
+        for (User user : all) {
+            if (user.getId() == id) {
+                return user;
+            }
+        }
+        return null;
+    }
 }

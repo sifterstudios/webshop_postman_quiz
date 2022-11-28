@@ -32,6 +32,22 @@ public class User {
         allCreatedUsers.add(this);
     }
 
+    public User() {
+        id = getUniqueId();
+        if (allCreatedUsers == null) allCreatedUsers = new ArrayList<>();
+        allCreatedUsers.add(this);
+    }
+
+    public User(User user) {
+        this.id = getUniqueId();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.email = user.getEmail();
+        this.preferedPaymentType = user.getPreferedPaymentType() == null
+                ? PaymentType.CARD
+                : user.getPreferedPaymentType();
+    }
+
     public int getId() {
         return id;
     }

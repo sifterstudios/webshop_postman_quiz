@@ -1,7 +1,9 @@
 package com.sifterstudios.postmanquiz.part4;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -11,5 +13,10 @@ public class Part4Controller {
     @GetMapping("/api/v1/users")
     public List<User> getAllUsers() {
         return UserDatabase.users.getAll();
+    }
+
+    @PostMapping("/api/v1/users")
+    public User addUser(@RequestBody User data) {
+        return new User(data);
     }
 }

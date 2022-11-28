@@ -20,7 +20,8 @@ public class UserDatabase {
         return all;
     }
 
-    public void addUser(User user) {
+    public User addUser(User user) {
         all.add(user);
+        return all.get(all.size()-1);
     }
 }
